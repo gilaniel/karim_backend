@@ -10,7 +10,7 @@ dotenv.config();
   imports: [
     TypeOrmModule.forRoot({
       type: "postgres",
-      host: env.POSTGRES_HOST,
+      host: env.PG_HOST,
       port: parseInt(env.POSTGRES_PORT || ""),
       username: env.POSTGRES_USER,
       password: env.POSTGRES_PASSWORD,
