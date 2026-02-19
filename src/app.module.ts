@@ -2,15 +2,12 @@ import { Module } from "@nestjs/common";
 import { TypeOrmModule } from "@nestjs/typeorm";
 import { ActivitiesModule } from "./activities/activities.module";
 import { env } from "process";
-import * as dotenv from "dotenv";
-
-dotenv.config();
 
 @Module({
   imports: [
     TypeOrmModule.forRoot({
       type: "postgres",
-      host: env.PG_HOST,
+      host: env.POSTGRES_HOST,
       port: parseInt(env.POSTGRES_PORT || ""),
       username: env.POSTGRES_USER,
       password: env.POSTGRES_PASSWORD,
