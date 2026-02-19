@@ -1,20 +1,21 @@
-import { Module } from '@nestjs/common';
-import { TypeOrmModule } from '@nestjs/typeorm';
-import { ActivitiesModule } from './activities/activities.module';
-import * as dotenv from 'dotenv';
+import { Module } from "@nestjs/common";
+import { TypeOrmModule } from "@nestjs/typeorm";
+import { ActivitiesModule } from "./activities/activities.module";
+import { env } from "process";
+import * as dotenv from "dotenv";
 
 dotenv.config();
 
 @Module({
   imports: [
     TypeOrmModule.forRoot({
-      type: 'postgres',
-      host: process.env.DB_HOST,
-      port: parseInt(process.env.DB_PORT || ''),
-      username: process.env.DB_USERNAME,
-      password: process.env.DB_PASSWORD,
-      database: process.env.DB_DATABASE,
-      entities: [__dirname + '/**/*.entity{.ts,.js}'],
+      type: "postgres",
+      host: env.POSTGRES_HOST,
+      port: parseInt(env.POSTGRES_PORT || ""),
+      username: env.POSTGRES_USER,
+      password: env.POSTGRES_PASSWORD,
+      database: env.POSTGRES_DB,
+      entities: [__dirname + "/**/*.entity{.ts,.js}"],
       synchronize: true,
       logging: true,
     }),
