@@ -19,7 +19,7 @@ services:
   backend:
     build: .
     container_name: nest_backend
-    command: sh -c "npm run start:prod"
+    command: sh -c "npm run start:dev"
     depends_on:
       postgres:
         condition: service_healthy
