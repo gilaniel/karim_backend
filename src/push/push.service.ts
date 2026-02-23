@@ -230,10 +230,20 @@ export class PushService implements OnModuleInit {
         },
       });
 
-      await webpush.sendNotification(
+      this.logger.debug(
+        `➡️ Sending to endpoint: ${subscription.subscription.endpoint}`,
+      );
+
+      const result = await webpush.sendNotification(
         subscription.subscription as webpush.PushSubscription,
         serializedPayload,
       );
+
+      this.logger.debug(`✅ result: ${result}`);
+      this.logger.debug(
+        `✅ Push service response status: ${result.statusCode}`,
+      );
+      this.logger.debug(`✅ Push service response body: ${result.body}`);
 
       // Обновляем время последнего уведомления
       await this.subscriptionRepository.update(
