@@ -3,6 +3,7 @@ import { Module } from "@nestjs/common";
 import { TypeOrmModule } from "@nestjs/typeorm";
 import { ActivitiesModule } from "./activities/activities.module";
 import { TypeOrmConfig } from "./data-source";
+import { PushModule } from "./push/push.module";
 
 @Module({
   imports: [
@@ -10,6 +11,7 @@ import { TypeOrmConfig } from "./data-source";
       ...TypeOrmConfig,
     }),
     ActivitiesModule,
+    PushModule,
   ],
 })
 export class AppModule {}
