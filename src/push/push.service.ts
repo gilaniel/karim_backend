@@ -224,6 +224,10 @@ export class PushService implements OnModuleInit {
     try {
       const serializedPayload = JSON.stringify({
         ...payload,
+        vibrate: [200, 100, 200],
+        requireInteraction: true,
+        silent: false,
+        tag: "test-delivery-" + Date.now(),
         data: {
           ...payload.data,
           timestamp: Date.now(),
