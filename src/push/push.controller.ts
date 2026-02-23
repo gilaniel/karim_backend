@@ -37,12 +37,11 @@ interface SubscribeDto {
   userId?: string;
 }
 
-class NotificationDto {
+interface NotificationDto {
   title: string;
   body: string;
   icon?: string;
   badge?: string;
-  image?: string;
   data?: Record<string, any>;
 }
 
