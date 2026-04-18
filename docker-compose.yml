@@ -20,7 +20,9 @@ services:
       retries: 10
 
   backend:
-    build: .
+    build:
+      context: .
+      target: development # <--- Указываем этап для разработки
     container_name: nest_backend
     command: sh -c "npm run start:dev"
     depends_on:
