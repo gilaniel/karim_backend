@@ -1,0 +1,45 @@
+version: '3.8'
+
+services:
+  postgres:
+    image: postgres:15
+    container_name: nest_postgres
+    restart: unless-stopped
+    env_file:
+      - ./.env
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    networks:
+      - karim-app-network-prod
+    healthcheck:
+      test: ['CMD-SHELL', 'pg_isready -U $${POSTGRES_USER} -d $${POSTGRES_DB}']
+      interval: 5s
+      timeout: 5s
+      retries: 10
+
+  backend:
+    build:
+      context: .
+      target: production # <--- Строго указываем, что собираем ТОЛЬКО продакшен-слой
+    container_name: nest_backend
+    restart: unless-stopped
+    depends_on:
+      postgres:
+        condition: service_healthy
+    ports:
+      - '3000:3000'
+    networks:
+      - karim-app-network-prod
+    env_file:
+      - ./.env
+    environment:
+      - POSTGRES_HOST=postgres
+    # ВАЖНО: Мы удалили volumes с кодом и строчку command. 
+    # Теперь Docker возьмет готовый код из образа и запустит команду CMD ["node", "dist/main"] из Dockerfile.
+
+volumes:
+  postgres_data:
+
+networks:
+  karim-app-network-prod:
+    driver: bridge
